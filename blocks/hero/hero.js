@@ -1,5 +1,3 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
 export default function decorate(block) {
   // Get the title, background image, form placeholder, and form button text
   const title = block.children[1].children[0].textContent; // Title
