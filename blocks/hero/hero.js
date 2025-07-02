@@ -1,34 +1,44 @@
+import { createOptimizedPicture } from '../../scripts/aem.js';
+
 export default function decorate(block) {
-  const title = block.querySelector('div:nth-child(1) div:nth-child(2)').textContent;
-  const backgroundImage = block.querySelector('div:nth-child(2) div:nth-child(2)').textContent;
-  const formPlaceholder = block.querySelector('div:nth-child(3) div:nth-child(2)').textContent;
-  const formButtonText = block.querySelector('div:nth-child(4) div:nth-child(2)').textContent;
+  // Create a container for the hero content
+  const heroContainer = document.createElement('div');
+  heroContainer.className = 'hero-container';
 
-  block.innerHTML = `
-    <img class="hero-background" src="${backgroundImage}" alt="DHL Delivery" loading="lazy">
-    <div class="hero-content">
-      <h1>${title}</h1>
-      <form class="tracking-form" id="tracking-form">
-        <input 
-          type="text" 
-          class="tracking-input" 
-          placeholder="${formPlaceholder}"
-          required
-          name="tracking-number"
-        >
-        <button type="submit" class="tracking-submit">${formButtonText}</button>
-      </form>
-    </div>
-  `;
+  // Get the title, background image, form placeholder, and form button text
+  const title = block.children[1].children[0].textContent; // Title
+  const backgroundImageUrl = block.children[1].children[1].textContent; // Background image URL
+  const formPlaceholder = block.children[1].children[2].textContent; // Form placeholder
+  const formButtonText = block.children[1].children[3].textContent; // Form button text
 
-  // Add form submission handling
-  const form = block.querySelector('#tracking-form');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const trackingNumber = form.querySelector('input[name="tracking-number"]').value;
-    if (trackingNumber.trim()) {
-      // Handle tracking submission
-      window.location.href = `/tracking-results?number=${encodeURIComponent(trackingNumber)}`;
-    }
-  });
+  // Set the background image for the hero container
+  heroContainer.style.backgroundImage = `url(${backgroundImageUrl})`;
+  heroContainer.style.backgroundSize = 'cover';
+  heroContainer.style.backgroundPosition = 'center';
+
+  // Create and append the title
+  const titleElement = document.createElement('h1');
+  titleElement.textContent = title;
+  heroContainer.appendChild(titleElement);
+
+  // Create the form
+  const form = document.createElement('form');
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = formPlaceholder;
+  input.className = 'hero-input';
+
+  const button = document.createElement('button');
+  button.type = 'submit';
+  button.textContent = formButtonText;
+  button.className = 'hero-button';
+
+  // Append input and button to the form
+  form.appendChild(input);
+  form.appendChild(button);
+  heroContainer.appendChild(form);
+
+  // Clear the block and append the hero container
+  block.textContent = '';
+  block.appendChild(heroContainer);
 }
