@@ -1,5 +1,3 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
 export default function decorate(block) {
   // Create a container for the hero content
   const heroContainer = document.createElement('div');
