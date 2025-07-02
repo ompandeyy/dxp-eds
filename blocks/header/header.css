@@ -14,6 +14,7 @@ nav#nav {
   padding: 0 1rem;
 }
 
+/* Flexbox for navigation sections */
 .nav-brand,
 .nav-tools,
 .nav-sections {
@@ -35,7 +36,7 @@ nav#nav {
   width: 100%;
 }
 
-/* Hamburger */
+/* Hamburger styles */
 .nav-hamburger {
   display: flex;
   align-items: center;
@@ -167,4 +168,24 @@ nav[aria-expanded="true"] .nav-sections {
   .nav-drop:hover {
     background-color: #f9f9f9;
   }
+}
+
+/* Additional styles for icons */
+.icon {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.icon img {
+  vertical-align: middle;
+}
+
+/* General link styles */
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:hover {
+  color: #007bff; /* Change color on hover */
 }
