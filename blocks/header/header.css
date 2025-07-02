@@ -128,6 +128,10 @@ nav[aria-expanded="true"] .nav-sections {
   z-index: 100;
 }
 
+.nav-drop[aria-expanded="true"] > ul {
+  display: block; /* Ensure this is defined only once */
+}
+
 /* Desktop styles */
 @media (min-width: 900px) {
   .nav-wrapper {
@@ -155,10 +159,6 @@ nav[aria-expanded="true"] .nav-sections {
     position: relative;
     border: none;
     padding: 0.5rem 0;
-  }
-
-  .nav-drop[aria-expanded="true"] > ul {
-    display: block;
   }
 
   .nav-drop > ul > li {
