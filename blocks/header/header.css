@@ -145,6 +145,7 @@ nav[aria-expanded="true"] .nav-sections {
     padding: 0.5rem 0;
   }
 
+  /* Move this selector before nav-sections */
   .nav-drop > ul {
     position: absolute;
     top: 100%;
