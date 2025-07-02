@@ -3,6 +3,12 @@ import { loadFragment } from '../fragment/fragment.js';
 
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+function toggleDropdowns(nav, expand = false) {
+  nav.querySelectorAll('.dhl-nav-sections .nav-drop').forEach((item) => {
+    item.setAttribute('aria-expanded', expand);
+  });
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('dhl-nav');
@@ -12,12 +18,6 @@ function closeOnEscape(e) {
       expandedSection.focus();
     }
   }
-}
-
-function toggleDropdowns(nav, expand = false) {
-  nav.querySelectorAll('.dhl-nav-sections .nav-drop').forEach((item) => {
-    item.setAttribute('aria-expanded', expand);
-  });
 }
 
 function toggleMenu(nav, forceOpen = null) {
