@@ -75,6 +75,7 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
+  
   // enable nav dropdown keyboard accessibility
   const navDrops = navSections.querySelectorAll('.nav-drop');
   if (isDesktop.matches) {
@@ -100,6 +101,37 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   } else {
     window.removeEventListener('keydown', closeOnEscape);
     nav.removeEventListener('focusout', closeOnFocusLost);
+  }
+}
+
+/**
+ * Decorates special navigation items like language switcher and search
+ * @param {Element} nav The navigation element
+ */
+function decorateTools(nav) {
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    // Handle search functionality
+    const searchItem = navTools.querySelector('li:has(a[href*="suche"], a[href*="search"])');
+    if (searchItem) {
+      searchItem.classList.add('nav-search');
+      const searchLink = searchItem.querySelector('a');
+      if (searchLink) {
+        searchLink.innerHTML = `<span class="search-icon">🔍</span> ${searchLink.textContent}`;
+      }
+    }
+
+    // Handle language switcher
+    const langItems = navTools.querySelectorAll('li:has(a[href*="EN"], a[href*="DE"])');
+    langItems.forEach(item => {
+      item.classList.add('nav-lang');
+    });
+
+    // Handle Deutschland/country selector
+    const countryItem = navTools.querySelector('li:has(a[href*="deutschland"], a[href*="germany"])');
+    if (countryItem) {
+      countryItem.classList.add('nav-country');
+    }
   }
 }
 
@@ -146,6 +178,9 @@ export default async function decorate(block) {
     });
   }
 
+  // Decorate tools section
+  decorateTools(nav);
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -155,6 +190,7 @@ export default async function decorate(block) {
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
+  
   // prevent mobile nav behavior on window resize
   toggleMenu(nav, navSections, isDesktop.matches);
   isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
