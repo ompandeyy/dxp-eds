@@ -116,6 +116,18 @@ nav[aria-expanded="true"] .nav-sections {
   padding: 0.5rem 0;
 }
 
+/* Dropdown styles */
+.nav-drop > ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ddd;
+  display: none;
+  z-index: 100;
+}
+
 /* Desktop styles */
 @media (min-width: 900px) {
   .nav-wrapper {
@@ -143,18 +155,6 @@ nav[aria-expanded="true"] .nav-sections {
     position: relative;
     border: none;
     padding: 0.5rem 0;
-  }
-
-  /* Move this selector before nav-sections */
-  .nav-drop > ul {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 200px;
-    background: #fff;
-    border: 1px solid #ddd;
-    display: none;
-    z-index: 100;
   }
 
   .nav-drop[aria-expanded="true"] > ul {
