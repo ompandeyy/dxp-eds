@@ -1,36 +1,3 @@
-Let's review the alignment of the CSS with the JS provided. The JS file manipulates the DOM, applies classes, and handles navigation behavior based on screen size and user interactions. The CSS should support these interactions and class manipulations.
-
-### Key Points from the JS:
-
-1. **Responsive Design**:
-   - `isDesktop` media query to check for desktop width.
-   - Classes and styles should adapt based on screen size.
-
-2. **Navigation Interaction**:
-   - Classes like `.nav-sections`, `.nav-drop`, `.nav-tools`, `.nav-lang`, `.nav-country`, `.nav-hamburger`, etc.
-   - CSS should provide styles for these classes.
-
-3. **Dynamic Class Changes**:
-   - Toggle classes like `aria-expanded`, `nav-drop`, and handle visibility.
-
-### Review of the CSS:
-
-1. **Responsive Design**:
-   - The CSS includes media queries for different screen sizes, aligning with the `isDesktop` media query used in JS.
-   - Classes like `.c-navigation--bar`, `.c-navigation--menu`, `.c-navigation-mobile-menu`, and `.c-navigation-menu--link-container` adapt based on screen size.
-
-2. **Navigation Interaction**:
-   - The CSS defines styles for `.c-navigation`, `.c-navigation--bar`, `.c-navigation-mobile-menu`, and other related classes.
-   - Styles for `opened` state and `aria-expanded` attribute are included, supporting the JS interactions.
-
-3. **Dynamic Class Changes**:
-   - The CSS includes styles for classes that are dynamically toggled, such as `.opened`, `.is-hidden`, and other navigation-specific classes.
-
-### Revised CSS for Alignment:
-
-Ensure all classes from the JS are correctly styled in the CSS. Here is the revised CSS with some additional checks for alignment:
-
-```css
 /* Navigation Container */
 .c-navigation {
     display: block;
@@ -483,3 +450,37 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
     .c-navigation[data-navigation-type="secondary"] .c-navigation-mobile-menu--button span:after {
         font-size: var(--eds-size-font-2xl);
         line-height: var(--eds-size-line-height-xs);
+    }
+
+    .c-navigation[data-navigation-type="secondary"] [data-flyout-selected="true"] .c-navigation-menu--button:after {
+        content: var(--eds-icon-chevron-up);
+    }
+
+    .c-navigation[data-navigation-type="secondary"] .c-navigation--menu .link:not(.link-external):after {
+        color: var(--eds-color-red);
+        content: var(--eds-icon-chevron-forward);
+        margin-left: 0.6rem;
+    }
+
+    .c-navigation[data-navigation-type="secondary"] .c-navigation--menu .link.link-jump:after {
+        content: var(--eds-icon-anchor-arrow-legacy);
+    }
+
+    .c-navigation--bar-secondary .c-navigation--menu > li:first-child a {
+        font-size: var(--eds-size-font-lg);
+        line-height: var(--eds-size-line-height-xl);
+    }
+}
+
+/* Media Queries for Secondary Navigation No Link Padding */
+@media (min-width: 48rem) and (max-width: 63.999rem) {
+    .c-navigation[data-navigation-type="secondary"] .c-navigation-mobile-menu > li .c-navigation-menu--no-link {
+        padding-left: 4.2rem;
+    }
+}
+
+/* Media Queries for Secondary Navigation Padding */
+@media (min-width: 64rem) {
+    .c-navigation--bar-secondary .c-navigation--menu .link,
+    .c-navigation--bar-secondary .c-navigation-menu--
+    
