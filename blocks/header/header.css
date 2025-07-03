@@ -482,5 +482,6 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
 /* Media Queries for Secondary Navigation Padding */
 @media (min-width: 64rem) {
     .c-navigation--bar-secondary .c-navigation--menu .link,
-    .c-navigation--bar-secondary .c-navigation-menu--
-    
+    .c-navigation--bar-secondary .c-navigation-menu--button {
+        padding: 2rem
+        
