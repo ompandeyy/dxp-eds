@@ -1,4 +1,34 @@
-To convert the provided CSS to EDS (Enterprise Design System) supported format, we need to ensure that the CSS classes and properties align with the standards and conventions used in EDS. Below is the converted CSS:
+Let's review the alignment of the CSS with the JS provided. The JS file manipulates the DOM, applies classes, and handles navigation behavior based on screen size and user interactions. The CSS should support these interactions and class manipulations.
+
+### Key Points from the JS:
+
+1. **Responsive Design**:
+   - `isDesktop` media query to check for desktop width.
+   - Classes and styles should adapt based on screen size.
+
+2. **Navigation Interaction**:
+   - Classes like `.nav-sections`, `.nav-drop`, `.nav-tools`, `.nav-lang`, `.nav-country`, `.nav-hamburger`, etc.
+   - CSS should provide styles for these classes.
+
+3. **Dynamic Class Changes**:
+   - Toggle classes like `aria-expanded`, `nav-drop`, and handle visibility.
+
+### Review of the CSS:
+
+1. **Responsive Design**:
+   - The CSS includes media queries for different screen sizes, aligning with the `isDesktop` media query used in JS.
+   - Classes like `.c-navigation--bar`, `.c-navigation--menu`, `.c-navigation-mobile-menu`, and `.c-navigation-menu--link-container` adapt based on screen size.
+
+2. **Navigation Interaction**:
+   - The CSS defines styles for `.c-navigation`, `.c-navigation--bar`, `.c-navigation-mobile-menu`, and other related classes.
+   - Styles for `opened` state and `aria-expanded` attribute are included, supporting the JS interactions.
+
+3. **Dynamic Class Changes**:
+   - The CSS includes styles for classes that are dynamically toggled, such as `.opened`, `.is-hidden`, and other navigation-specific classes.
+
+### Revised CSS for Alignment:
+
+Ensure all classes from the JS are correctly styled in the CSS. Here is the revised CSS with some additional checks for alignment:
 
 ```css
 /* Navigation Container */
@@ -49,7 +79,7 @@ To convert the provided CSS to EDS (Enterprise Design System) supported format, 
 
 /* Media Queries */
 @media (min-width: 64rem) {
-    .c-navigation[data-navigation-type="sticky"][data-navigation-show="false"]:not(.is-hidden) .c-navigation--bar--wrapper {
+    .c-navigation[data-navigation-type="sticky"][data-navigation-show="false"]:not(.is-hidden) .c-navigation--bar-wrapper {
         transition: visibility 0.4s ease-in-out;
         visibility: hidden;
     }
@@ -69,16 +99,16 @@ To convert the provided CSS to EDS (Enterprise Design System) supported format, 
 
 /* Navigation Menu Hidden */
 .c-navigation--bar .c-navigation-mobile-menu,
-.c-navigation--bar--main .c-navigation--menu,
-.c-navigation--bar--secondary .c-navigation--menu,
-.c-navigation--bar--sub,
+.c-navigation--bar-main .c-navigation--menu,
+.c-navigation--bar-secondary .c-navigation--menu,
+.c-navigation--bar-sub,
 .c-navigation--bar.c-navigation-mobile-menu,
 .c-navigation:not([data-navigation-type="secondary"]) .c-navigation-menu--link-container {
     display: none;
 }
 
 /* Secondary Navigation Mobile Menu */
-.c-navigation--bar--secondary > .c-navigation-mobile-menu {
+.c-navigation--bar-secondary > .c-navigation-mobile-menu {
     position: relative;
     top: var(--eds-secondary-navigation-border-offset);
 }
@@ -106,7 +136,7 @@ To convert the provided CSS to EDS (Enterprise Design System) supported format, 
 
 /* Opened Navigation Menu */
 .c-navigation.opened .c-navigation--bar .c-navigation-mobile-menu,
-.c-navigation.opened .c-navigation--bar--main .c-navigation-mobile-menu .c-navigation--menu {
+.c-navigation.opened .c-navigation--bar-main .c-navigation-mobile-menu .c-navigation--menu {
     display: block;
 }
 
@@ -199,7 +229,7 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
 }
 
 /* Opened Navigation Sub Component */
-.c-navigation.opened .c-navigation--bar--sub .component-wide {
+.c-navigation.opened .c-navigation--bar-sub .component-wide {
     padding: 0;
 }
 
@@ -280,9 +310,9 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
 
 /* Media Queries for Navigation Menu Display */
 @media (min-width: 64rem) {
-    .c-navigation--bar--main .c-navigation--menu,
-    .c-navigation--bar--secondary .c-navigation--menu,
-    .c-navigation--bar--sub,
+    .c-navigation--bar-main .c-navigation--menu,
+    .c-navigation--bar-secondary .c-navigation--menu,
+    .c-navigation--bar-sub,
     .c-navigation:not([data-navigation-type="secondary"]) .c-navigation-menu--link-container {
         display: flex;
     }
@@ -354,17 +384,17 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
 }
 
 /* Secondary Navigation Headline Link and No Link */
-.c-navigation--bar--secondary .c-navigation-menu--headlinelink,
-.c-navigation--bar--secondary .c-navigation-menu--no-link {
+.c-navigation--bar-secondary .c-navigation-menu--headlinelink,
+.c-navigation--bar-secondary .c-navigation-menu--no-link {
     display: none;
     flex-shrink: 0;
     margin-right: 4.2rem;
 }
 
 /* Secondary Navigation First Child */
-.c-navigation--bar--secondary .c-navigation--menu > li:first-child .c-navigation-menu--no-link,
-.c-navigation--bar--secondary .c-navigation-menu--headlinelink,
-.c-navigation--bar--secondary .c-navigation-menu--no-link {
+.c-navigation--bar-secondary .c-navigation--menu > li:first-child .c-navigation-menu--no-link,
+.c-navigation--bar-secondary .c-navigation-menu--headlinelink,
+.c-navigation--bar-secondary .c-navigation-menu--no-link {
     color: var(--eds-color-red);
     font-size: var(--eds-size-font-2xl);
     font-weight: 800;
@@ -373,19 +403,19 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
 }
 
 /* Secondary Navigation First Child Padding */
-.c-navigation--bar--secondary .c-navigation--menu > li:first-child .c-navigation-menu--no-link {
+.c-navigation--bar-secondary .c-navigation--menu > li:first-child .c-navigation-menu--no-link {
     padding: 0 2rem;
 }
 
 /* Secondary Navigation Hover */
-.c-navigation--bar--secondary .c-navigation--menu > li:first-child a:hover,
+.c-navigation--bar-secondary .c-navigation--menu > li:first-child a:hover,
 .c-navigation[data-navigation-type="secondary"] .c-navigation-menu--button:hover {
     color: var(--eds-color-red-600);
 }
 
 /* Secondary Navigation Menu Button */
-.c-navigation--bar--secondary .c-navigation--menu .link,
-.c-navigation--bar--secondary .c-navigation-menu--button {
+.c-navigation--bar-secondary .c-navigation--menu .link,
+.c-navigation--bar-secondary .c-navigation-menu--button {
     font-size: var(--eds-size-font-md);
     font-weight: 700;
 }
@@ -453,36 +483,3 @@ body.text-zoom .c-navigation[data-navigation-type="secondary"].opened .c-navigat
     .c-navigation[data-navigation-type="secondary"] .c-navigation-mobile-menu--button span:after {
         font-size: var(--eds-size-font-2xl);
         line-height: var(--eds-size-line-height-xs);
-    }
-
-    .c-navigation[data-navigation-type="secondary"] [data-flyout-selected="true"] .c-navigation-menu--button:after {
-        content: var(--eds-icon-chevron-up);
-    }
-
-    .c-navigation[data-navigation-type="secondary"] .c-navigation--menu .link:not(.link-external):after {
-        color: var(--eds-color-red);
-        content: var(--eds-icon-chevron-forward);
-        margin-left: 0.6rem;
-    }
-
-    .c-navigation[data-navigation-type="secondary"] .c-navigation--menu .link.link-jump:after {
-        content: var(--eds-icon-anchor-arrow-legacy);
-    }
-
-    .c-navigation--bar--secondary .c-navigation--menu > li:first-child a {
-        font-size: var(--eds-size-font-lg);
-        line-height: var(--eds-size-line-height-xl);
-    }
-}
-
-/* Media Queries for Secondary Navigation No Link Padding */
-@media (min-width: 48rem) and (max-width: 63.999rem) {
-    .c-navigation[data-navigation-type="secondary"] .c-navigation-mobile-menu > li .c-navigation-menu--no-link {
-        padding-left: 4.2rem;
-    }
-}
-
-/* Media Queries for Secondary Navigation Padding */
-@media (min-width: 64rem) {
-    .c-navigation--bar--secondary .c-navigation--menu .link,
-    .c-navigation--bar--secondary .c-navigation-menu--button
