@@ -1,8 +1,3 @@
-To adapt the JS file to manipulate the DOM and prepare the HTML structure as provided, we need to ensure that the new JS follows the conventions and standards of EDS (Enterprise Design System) and AEM (Adobe Experience Manager).
-
-Here's the adapted JS file:
-
-```javascript
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
