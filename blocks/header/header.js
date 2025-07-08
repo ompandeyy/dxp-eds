@@ -18,6 +18,14 @@ export default function decorate(block) {
   // Extract logo from the first div
   const logoDiv = headerContainer.querySelector('div:first-child');
   const logoLink = logoDiv.querySelector('a');
+  if (!logoLink) {
+  console.error('logoLink not found');
+  return;
+}
+  if (!logoDiv) {
+  console.error('logoDiv not found');
+  return;
+}
   
   // Create logo section
   const logoSection = document.createElement('div');
