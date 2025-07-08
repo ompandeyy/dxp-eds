@@ -10,11 +10,9 @@ function closeOnEscape(e) {
     const navSections = nav.querySelector('.nav-sections');
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
       toggleAllNavSections(navSections);
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections);
       nav.querySelector('button').focus();
     }
@@ -27,10 +25,8 @@ function closeOnFocusLost(e) {
     const navSections = nav.querySelector('.nav-sections');
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
       toggleAllNavSections(navSections, false);
     } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections, false);
     }
   }
@@ -41,7 +37,6 @@ function openOnKeydown(e) {
   const isNavDrop = focused.className === 'nav-drop';
   if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
     const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    // eslint-disable-next-line no-use-before-define
     toggleAllNavSections(focused.closest('.nav-sections'));
     focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
   }
@@ -164,3 +159,276 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 }
+
+// Apply CSS styles
+const style = document.createElement('style');
+style.textContent = `
+/* DHL Header Styles */
+.header {
+  background-color: #FFCC00;
+  padding: 0;
+  position: relative;
+  z-index: 1000;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+/* Logo Section */
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo a {
+  text-decoration: none;
+  color: #D40511;
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Utility Navigation (Search, Language, Login) */
+.header-utilities {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-search {
+  position: relative;
+}
+
+.header-search input {
+  padding: 8px 35px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.header-search button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.header-language {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-language select {
+  background: none;
+  border: none;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.header-language a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.header-language a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Main Navigation */
+.header-nav {
+  background-color: #FFCC00;
+  border-top: 1px solid #e6b800;
+}
+
+.header-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-nav > ul > li {
+  position: relative;
+}
+
+.header-nav > ul > li > a,
+.header-nav > ul > li > span {
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.header-nav > ul > li:hover > a,
+.header-nav > ul > li:hover > span {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Dropdown Menus */
+.header-nav ul ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.header-nav li:hover ul {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-nav ul ul li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.header-nav ul ul li:last-child {
+  border-bottom: none;
+}
+
+.header-nav ul ul a {
+  padding: 12px 20px;
+  color: #333;
+  font-size: 13px;
+  font-weight: normal;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.header-nav ul ul a:hover {
+  background-color: #f8f8f8;
+  color: #D40511;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 15px;
+    height: 50px;
+  }
+  
+  .header-logo a {
+    font-size: 20px;
+  }
+  
+  .header-utilities {
+    gap: 15px;
+  }
+  
+  .header-search input {
+    width: 150px;
+  }
+  
+  .header-nav > ul {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #FFCC00;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+  
+  .header-nav.mobile-open > ul {
+    display: flex;
+  }
+  
+  .header-nav > ul > li {
+    width: 100%;
+  }
+  
+  .header-nav ul ul {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+/* Dropdown Arrow Indicators */
+.header-nav > ul > li > span:after {
+  content: '▼';
+  font-size: 10px;
+  margin-left: 8px;
+  color: #666;
+}
+
+/* Accessibility */
+.header-nav a:focus,
+.header-nav span:focus {
+  outline: 2px solid #D40511;
+  outline-offset: 2px;
+}
+
+/* Search Icon */
+.search-icon {
+  width: 16px;
+  height: 16px;
+  fill: #666;
+}
+
+.globe-icon {
+  width: 16px;
+  height: 16px;
+  fill: #666;
+  margin-right: 5px;
+}
+`;
+document.head.appendChild(style);
