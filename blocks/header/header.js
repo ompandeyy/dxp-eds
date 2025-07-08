@@ -141,6 +141,14 @@ export default async function decorate(block) {
     });
   }
 
+  // Move "Anmeldung am Kundenportal" to the right
+  const navUtilities = document.createElement('div');
+  navUtilities.classList.add('header-utilities');
+  const navSectionsList = navSections.querySelector('ul');
+  const customerPortalItem = navSectionsList.querySelector('li:last-child');
+  navUtilities.appendChild(customerPortalItem);
+  nav.appendChild(navUtilities);
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -201,6 +209,7 @@ style.textContent = `
   display: flex;
   align-items: center;
   gap: 20px;
+  margin-left: auto;
 }
 
 .header-search {
