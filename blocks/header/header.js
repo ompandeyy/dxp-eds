@@ -1,239 +1,231 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
+/**
+ * DHL Header Component for AEM EDS
+ * Transforms the basic HTML structure into a functional header
+ */
 
-// Media query match that indicates desktop width
-const isDesktop = window.matchMedia('(min-width: 900px)');
-
-function closeOnEscape(e) {
-  if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
+export default function decorate(block) {
+  // Get the header container
+  const headerContainer = block;
+  
+  // Create the main header structure
+  const header = document.createElement('header');
+  header.className = 'header';
+  
+  // Create top bar with logo and utilities
+  const topBar = document.createElement('div');
+  topBar.className = 'header-container';
+  
+  // Extract logo from the first div
+  const logoDiv = headerContainer.querySelector('div:first-child');
+  const logoLink = logoDiv.querySelector('a');
+  
+  // Create logo section
+  const logoSection = document.createElement('div');
+  logoSection.className = 'header-logo';
+  logoSection.appendChild(logoLink);
+  
+  // Create utilities section (search, language, login)
+  const utilitiesSection = document.createElement('div');
+  utilitiesSection.className = 'header-utilities';
+  
+  // Add search
+  const searchDiv = document.createElement('div');
+  searchDiv.className = 'header-search';
+  searchDiv.innerHTML = `
+    <input type="text" placeholder="Suche" aria-label="Suche">
+    <button type="submit" aria-label="Suchen">
+      <svg class="search-icon" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </button>
+  `;
+  
+  // Add language selector
+  const languageDiv = document.createElement('div');
+  languageDiv.className = 'header-language';
+  languageDiv.innerHTML = `
+    <svg class="globe-icon" viewBox="0 0 24 24">
+      <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+    </svg>
+    <span>Deutschland</span>
+    <a href="#" aria-label="Switch to English">EN</a>
+    <a href="#" aria-label="Switch to German">DE</a>
+  `;
+  
+  // Add mobile menu toggle
+  const mobileToggle = document.createElement('button');
+  mobileToggle.className = 'mobile-menu-toggle';
+  mobileToggle.innerHTML = '☰';
+  mobileToggle.setAttribute('aria-label', 'Toggle navigation menu');
+  
+  // Assemble top bar
+  topBar.appendChild(logoSection);
+  topBar.appendChild(utilitiesSection);
+  utilitiesSection.appendChild(searchDiv);
+  utilitiesSection.appendChild(languageDiv);
+  utilitiesSection.appendChild(mobileToggle);
+  
+  // Create navigation section
+  const navSection = document.createElement('nav');
+  navSection.className = 'header-nav';
+  
+  const navContainer = document.createElement('div');
+  navContainer.className = 'header-nav-container';
+  
+  // Extract the navigation from the second div
+  const navDiv = headerContainer.querySelector('div:nth-child(2)');
+  const navList = navDiv.querySelector('ul');
+  
+  // Transform navigation items
+  const navItems = navList.querySelectorAll('> li');
+  navItems.forEach(item => {
+    const text = item.childNodes[0].textContent.trim();
+    const subMenu = item.querySelector('ul');
+    
+    // Create main nav item
+    const navItem = document.createElement('li');
+    
+    if (subMenu) {
+      // Has dropdown
+      const span = document.createElement('span');
+      span.textContent = text;
+      span.setAttribute('tabindex', '0');
+      span.setAttribute('role', 'button');
+      span.setAttribute('aria-haspopup', 'true');
+      span.setAttribute('aria-expanded', 'false');
+      
+      navItem.appendChild(span);
+      navItem.appendChild(subMenu);
+      
+      // Add keyboard support
+      span.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const expanded = span.getAttribute('aria-expanded') === 'true';
+          span.setAttribute('aria-expanded', !expanded);
+        }
+      });
+    } else {
+      // Simple link
+      const link = document.createElement('a');
+      link.href = '#';
+      link.textContent = text;
+      navItem.appendChild(link);
     }
-  }
+    
+    navList.appendChild(navItem);
+  });
+  
+  navContainer.appendChild(navList);
+  navSection.appendChild(navContainer);
+  
+  // Assemble final header
+  header.appendChild(topBar);
+  header.appendChild(navSection);
+  
+  // Replace the original content
+  headerContainer.innerHTML = '';
+  headerContainer.appendChild(header);
+  
+  // Add event listeners
+  addEventListeners(header);
+  
+  return header;
 }
 
-function closeOnFocusLost(e) {
-  const nav = e.currentTarget;
-  if (!nav.contains(e.relatedTarget)) {
-    const navSections = nav.querySelector('.nav-sections');
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      toggleAllNavSections(navSections, false);
-    } else if (!isDesktop.matches) {
-      toggleMenu(nav, navSections, false);
+function addEventListeners(header) {
+  // Mobile menu toggle
+  const mobileToggle = header.querySelector('.mobile-menu-toggle');
+  const nav = header.querySelector('.header-nav');
+  
+  mobileToggle.addEventListener('click', () => {
+    nav.classList.toggle('mobile-open');
+    const isOpen = nav.classList.contains('mobile-open');
+    mobileToggle.setAttribute('aria-expanded', isOpen);
+  });
+  
+  // Search functionality
+  const searchForm = header.querySelector('.header-search');
+  const searchInput = searchForm.querySelector('input');
+  const searchButton = searchForm.querySelector('button');
+  
+  searchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if (query) {
+      // Implement search functionality
+      console.log('Search query:', query);
+      // window.location.href = `/search?q=${encodeURIComponent(query)}`;
     }
-  }
-}
-
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
-
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
-
-function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
+  });
+  
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      searchButton.click();
+    }
+  });
+  
+  // Dropdown keyboard navigation
+  const dropdownTriggers = header.querySelectorAll('[aria-haspopup="true"]');
+  dropdownTriggers.forEach(trigger => {
+    trigger.addEventListener('keydown', (e) => {
+      const dropdown = trigger.nextElementSibling;
+      if (!dropdown) return;
+      
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const firstLink = dropdown.querySelector('a');
+        if (firstLink) firstLink.focus();
+      }
+    });
+  });
+  
+  // Dropdown menu item navigation
+  const dropdownMenus = header.querySelectorAll('.header-nav ul ul');
+  dropdownMenus.forEach(menu => {
+    const links = menu.querySelectorAll('a');
+    links.forEach((link, index) => {
+      link.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const nextLink = links[index + 1];
+          if (nextLink) nextLink.focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (index === 0) {
+            const trigger = menu.previousElementSibling;
+            if (trigger) trigger.focus();
+          } else {
+            const prevLink = links[index - 1];
+            if (prevLink) prevLink.focus();
+          }
+        } else if (e.key === 'Escape') {
+          const trigger = menu.previousElementSibling;
+          if (trigger) trigger.focus();
+        }
+      });
+    });
+  });
+  
+  // Close dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    if (!header.contains(e.target)) {
+      dropdownTriggers.forEach(trigger => {
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+      nav.classList.remove('mobile-open');
+    }
+  });
+  
+  // Language selector functionality
+  const languageLinks = header.querySelectorAll('.header-language a');
+  languageLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const lang = link.textContent.trim();
+      console.log('Language changed to:', lang);
+      // Implement language switching logic
+    });
   });
 }
-
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-  const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-
-  const navDrops = navSections.querySelectorAll('.nav-drop');
-  if (isDesktop.matches) {
-    navDrops.forEach((drop) => {
-      if (!drop.hasAttribute('tabindex')) {
-        drop.setAttribute('tabindex', 0);
-        drop.addEventListener('focus', focusNavSection);
-      }
-    });
-  } else {
-    navDrops.forEach((drop) => {
-      drop.removeAttribute('tabindex');
-      drop.removeEventListener('focus', focusNavSection);
-    });
-  }
-
-  if (!expanded || isDesktop.matches) {
-    window.addEventListener('keydown', closeOnEscape);
-    nav.addEventListener('focusout', closeOnFocusLost);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-    nav.removeEventListener('focusout', closeOnFocusLost);
-  }
-}
-
-function decorateTools(nav) {
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) {
-    const searchItem = navTools.querySelector('li:has(a[href*="suche"], a[href*="search"])');
-    if (searchItem) {
-      searchItem.classList.add('nav-search');
-      const searchLink = searchItem.querySelector('a');
-      if (searchLink) {
-        searchLink.innerHTML = `<span class="search-icon">🔍</span> ${searchLink.textContent}`;
-      }
-    }
-
-    const langItems = navTools.querySelectorAll('li:has(a[href*="EN"], a[href*="DE"])');
-    langItems.forEach((item) => {
-      item.classList.add('nav-lang');
-    });
-
-    const countryItem = navTools.querySelector('li:has(a[href*="deutschland"], a[href*="germany"])');
-    if (countryItem) {
-      countryItem.classList.add('nav-country');
-    }
-  }
-}
-
-function createNavigationMenu() {
-  const nav = document.createElement('nav');
-  nav.id = 'nav';
-  nav.innerHTML = `
-    <div class="c-navigation js--flyout-keyboardtrap" data-navigation-type="static" data-navigation-show-stick-after="0px">
-      <nav class="c-navigation--bar c-navigation--bar--main" role="navigation" aria-label="Dienstprogramm">
-        <div class="c-navigation--bar--wrapper component-wide l-grid--between-s l-grid--middle-s">
-          <div class="c-navigation-logo-wrapper">
-            <a href="/de-de/home.html" target="_self" title="DHL Homepage" class="c-navigation-logo">
-              <img src="/content/dam/dhl/global/core/images/logos/dhl-logo.svg" alt="DHL Homepage">
-            </a>
-          </div>
-          <ul class="c-navigation--menu c-navigation-menu--language-list-container">
-            <li data-on-search-hide="false" class="c-nav-primary--globalnewsflash js--nav-primary--globalnewsflash not-visible">
-              <a class="c-navigation-menu--meta-link link has-icon icon-exception" href="/global-en/global-news-alerts.html" target="_self" aria-label="Warnmeldungen" rel="noopener noreferrer">
-                <span class="c-navigation-menu--icon has-icon icon-exception sr-hidden" aria-hidden="true" tabindex="-1"></span>
-                <span>Warnmeldungen</span>
-              </a>
-            </li>
-            <li>
-              <form action="/de-de/home/suche.html" method="GET" class="c-navigation-search--form js--navigation-search--form" data-open="false" data-show-label="" id="nav-search-static_a8bb08ea-a345-4b38-b35f-94ca8f479525" role="search">
-                <label for="nav-search-static--input_a8bb08ea-a345-4b38-b35f-94ca8f479525" class="c-navigation-search--input-label has-icon" tabindex="0" role="button">
-                  <span class="c-navigation-menu--icon has-icon icon-search sr-hidden" aria-hidden="true" tabindex="-1"></span>
-                  <span class="c-navigation-search--input-label-text">Suche</span>
-                </label>
-                <div class="c-navigation-search--input-container">
-                  <em class="c-navigation-search--icon icon-search" aria-hidden="true" tabindex="-1"></em>
-                  <input class="c-navigation-search--input js--navigation-search--input" id="nav-search-static--input_a8bb08ea-a345-4b38-b35f-94ca8f479525" autocomplete="off" max-num-list="5" type="search" placeholder="dhl.com durchsuchen" name="q" data-target="#nav-search-static_a8bb08ea-a345-4b38-b35f-94ca8f479525" tabindex="0" role="combobox" aria-autocomplete="list" aria-controls="search-quick-list_a8bb08ea-a345-4b38-b35f-94ca8f479525" aria-expanded="false">
-                  <span class="c-navigation-search--close icon-cancel js--navigation-search--close" data-target="#nav-search-static_a8bb08ea-a345-4b38-b35f-94ca8f479525" role="button" tabindex="0" aria-label="Suchleiste schließen" aria-expanded="true" aria-controls="search-quick-list_a8bb08ea-a345-4b38-b35f-94ca8f479525"></span>
-                </div>
-                <div class="c-navigation-search--quicklinks js--navigation-search--quicklinks">
-                  <ul class="shadow-small" id="search-quick-list_a8bb08ea-a345-4b38-b35f-94ca8f479525"></ul>
-                </div>
-              </form>
-            </li>
-            <li>
-              <a class="c-navigation-menu--meta-link link has-icon icon-globe" href="/de-de/home/standortauswahl.html" title="Standort auswählen">
-                <span class="c-navigation-menu--icon has-icon icon-globe sr-hidden" aria-hidden="true" tabindex="-1"></span>
-                <span>Deutschland</span>
-              </a>
-            </li>
-            <li class="c-navigation-menu--language-list">
-              <a class="c-navigation-menu--meta-link link has-icon js--nav-lang" href="/de-en/home/get-a-quote.html" data-selected="false" target="_self" aria-label="Sprache wechseln zu: English" aria-hidden="false" tabindex="0" rel="">
-                EN
-              </a>
-            </li>
-            <li class="c-navigation-menu--language-list">
-              <span class="c-navigation-menu--meta-link is-selected sr-hidden" data-selected="true" aria-label="Deutsch" aria-hidden="true" tabindex="-1" rel="">
-                DE
-              </span>
-            </li>
-          </ul>
-          <button class="c-navigation-mobile-menu--button js--close-trap-prefer" aria-controls="static_menu_b6b46e2f-8378-48c8-aa15-7109e64fc557" aria-label="Hauptmenü" aria-expanded="false">
-            <div class="c-navigation-mobile-menu--bar" aria-hidden="true"></div>
-            <div class="c-navigation-mobile-menu--bar" aria-hidden="true"></div>
-            <div class="c-navigation-mobile-menu--bar" aria-hidden="true"></div>
-          </button>
-        </div>
-        <div class="c-navigation-mobile-menu" id="static_menu_b6b46e2f-8378-48c8-aa15-7109e64fc557">
-          <ul class="c-navigation--menu c-navigation-mobile-menu" role="list" data-scrollable="" data-scroll-menu="">
-            <li>
-              <div class="c-navigation-flyout">
-                <a class="c-navigation-menu--link link has-icon" href="/de-de/home/sendungsverfolgung.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Track","type":"Link","interaction":"Click","position":"","context":"","attributes":{"component":"dhl/components/navigation/primaryxf","topic":"primary navigation"}}}' data-selected="false">
-                  <span class="sr-hidden" aria-hidden="true" tabindex="-1"></span>
-                  <span>Sendungsverfolgung</span>
-                  <span class="c-navigation-menu--decorator has-icon sr-hidden" aria-hidden="true" tabindex="-1"></span>
-                </a>
-              </div>
-            </li>
-            <li>
-              <div id="c-navigation-flyout-id-flyout_c5fa340b-90a7-4713-9c8b-fa3b7746ad7f" class="c-navigation-flyout js--navigation-flyout js--auto-close-on-tab-out js--auto-close-desktop" data-flyout-selected="false" data-flyout-open-by-default="false">
-                <button class="c-navigation-menu--button js--close-trap has-icon" aria-expanded="false" data-flyout-target="#c-navigation-flyout-id-flyout_c5fa340b-90a7-4713-9c8b-fa3b7746ad7f" aria-controls="c-navigation-flyout-id-flyout_c5fa340b-90a7-4713-9c8b-fa3b7746ad7f-aria" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Ship","type":"Button","interaction":"Click","position":"","context":"","attributes":{"component":"dhl/components/navigation/primaryxf","topic":"primary navigation"}}}'>
-                  <span>Versand</span>
-                </button>
-                <div class="c-navigation-flyout-container" tabindex="-1" aria-hidden="true" data-flyout-container="" id="c-navigation-flyout-id-flyout_c5fa340b-90a7-4713-9c8b-fa3b7746ad7f-aria">
-                  <div class="c-navigation-flyout-content" data-flyout-size="full" data-flyout-content="">
-                    <div>
-                      <div class="xf-content-height">
-                        <div class="aem-Grid aem-Grid--12 aem-Grid--default--12">
-                          <div class="container aem-GridColumn aem-GridColumn--default--12">
-                            <span class="link-anchor" id="root_container_copy"></span>
-                            <div id="container-6f89cbd047" class="cmp-container cmp-container--white cmp-container--gutter-21 cmp-container--padding-size-14 cmp-container--left-on-top">
-                              <div class="aem-Grid aem-Grid--12 aem-Grid--tablet--12 aem-Grid--default--12">
-                                <div class="list bullet-type-none top-margin aem-GridColumn--tablet--12 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn aem-GridColumn--default--12">
-                                  <span class="link-anchor" id="root_container_copy_list"></span>
-                                  <ul id="list-a1efc1d1d5" class="cmp-list">
-                                    <li class="cmp-list__item">
-                                      <a class="cmp-list__item-link cmp-list__item-link--internal" href="/de-de/home/fordern-sie-ein-angebot-an.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Get a Quote","type":"Link","interaction":"Click","position":"","context":"Document and Package","attributes":{"component":"dhl/components/core/list","topic":"ship mobile flyout"}}}' aria-describedby=" ">
-                                        <span class="cmp-list__item-title">Fordere ein Angebot an</span>
-                                        <span class="cmp-list__item-decorator" aria-hidden="true" tabindex="-1"></span>
-                                      </a>
-                                    </li>
-                                    <li class="cmp-list__item">
-                                      <a class="cmp-list__item-link cmp-list__item-link--internal" href="/de-de/home/online-buchen.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Ship Now","type":"Link","interaction":"Click","position":"","context":"Document and Package","attributes":{"component":"dhl/components/core/list","topic":"ship mobile flyout"}}}' aria-describedby=" ">
-                                        <span class="cmp-list__item-title">Jetzt verschicken</span>
-                                        <span class="cmp-list__item-decorator" aria-hidden="true" tabindex="-1"></span>
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                                <div class="title title-margin-bottom title-margin-top aem-GridColumn--tablet--12 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn aem-GridColumn--default--12">
-                                  <span class="link-anchor" id="root_container_copy_title"></span>
-                                  <div class="cmp-title" id="title-4c8811958b">
-                                    <h2 class="cmp-title__text cmp-title__text--level5">Dokument und Paket</h2>
-                                  </div>
-                                </div>
-                                <div class="separator separator-color-gray aem-GridColumn aem-GridColumn--default--12">
-                                  <span class="link-anchor" id="root_container_copy_separator"></span>
-                                  <div class="cmp-separator" id="separator-49bfc79858">
-                                    <hr class="cmp-separator__horizontal-rule" aria-hidden="true" role="none">
-                                  </div>
-                                </div>
-                                <div class="list bullet-type-none top-margin aem-GridColumn--tablet--12 aem-GridColumn--offset--tablet--0 aem-GridColumn--tablet--none aem-GridColumn aem-GridColumn--default--12">
-                                  <span class="link-anchor" id="root_container_copy_list_copy"></span>
-                                  <ul id="list-8708b5afa7" class="cmp-list">
-                                    <li class="cmp-list__item">
-                                      <a class="cmp-list__item-link cmp-list__item-link--internal" href="/de-de/home/versand/paket-und-dokumentenversand.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Document and parcel shipping","type":"Link","interaction":"Click","position":"","context":"Document and Package","attributes":{"component":"dhl/components/core/list","topic":"ship mobile flyout"}}}' aria-describedby=" ">
-                                        <span class="cmp-list__item-title">Dokumenten- und Paketversand</span>
-                                        <span class="cmp-list__item-decorator" aria-hidden="true" tabindex="-1"></span>
-                                      </a>
-                                    </li>
-                                    <li class="cmp-list__item">
-                                      <a class="cmp-list__item-link cmp-list__item-link--internal" href="/de-de/home/versand/optionen-fur-einzelhandler-und-massenversender.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Volume shipping (Business Only)","type":"Link","interaction":"Click","position":"","context":"Document and Package","attributes":{"component":"dhl/components/core/list","topic":"ship mobile flyout"}}}' aria-describedby=" ">
-                                        <span class="cmp-list__item-title">Volumenversand (nur Geschäftskunden)</span>
-                                        <span class="cmp-list__item-decorator" aria-hidden="true" tabindex="-1"></span>
-                                      </a>
-                                    </li>
-                                    <li class="cmp-list__item">
-                                      <a class="cmp-list__item-link cmp-list__item-link--external" href="/de-de/home/versand/postversand-fur-geschaftskunden.html" data-analytics='{"trackedInteractions":"basic","interactionType":"dhl_utf_contentInteraction","content":{"name":"Direct mail for business","
