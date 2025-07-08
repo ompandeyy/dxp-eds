@@ -1,50 +1,84 @@
-.header .header-main {
+/* General dropdown panel */
+.header .default-content-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  padding: 2rem;
   gap: 2rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(to right, #f5d000, #f9c400);
-  font-family: Arial, sans-serif;
-  font-size: 0.95rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: "DHL Gothic", Arial, sans-serif;
+  font-size: 16px;
 }
 
-.header .header-item {
-  cursor: pointer;
-  white-space: nowrap;
+/* Left column – Jetzt Versenden */
+.header .default-content-wrapper > p:first-of-type {
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #d40511;
 }
-
-.header .header-item a {
-  font-weight: bold;
-  text-decoration: none;
-  color: #ba0c2f;
-}
-
-.header .dropdown::after {
-  content: ' ▼';
-  font-size: 0.75rem;
-}
-
-.header .locale-switch {
-  margin-left: auto;
-  font-weight: bold;
-}
-
-.header .menu-title {
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 1rem 2rem 0.25rem;
-}
-
-.header .menu-section {
+.header .default-content-wrapper ul {
   list-style: none;
-  padding: 0 2rem;
-  margin: 0 0 1rem;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+.header .default-content-wrapper ul li {
+  padding: 1rem 1.5rem;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .default-content-wrapper ul li::before {
+  content: "📦"; /* Placeholder icon */
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
 }
 
-.header .menu-section li {
-  padding: 0.25rem 0;
-  border-bottom: 1px solid #eee;
+/* Middle and right columns */
+.header .default-content-wrapper > ul {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Subsection headers */
+.header .default-content-wrapper strong {
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Sub-lists */
+.header .default-content-wrapper ul ul {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid #eee;
+}
+.header .default-content-wrapper ul ul li {
+  border: none;
+  padding: 0.5rem 0;
+  margin-bottom: 0;
+  color: #222;
   font-size: 0.95rem;
-  cursor: pointer;
+}
+
+/* Highlighted CTA buttons inside dropdown */
+.header .default-content-wrapper .cta {
+  display: inline-block;
+  border: 2px solid #d40511;
+  color: #d40511;
+  font-weight: 700;
+  padding: 0.8rem 1.2rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+.header .default-content-wrapper .cta:hover {
+  background-color: #fce4e4;
 }
