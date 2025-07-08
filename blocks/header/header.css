@@ -1,119 +1,50 @@
-/* Basic layout */
-header {
+.header .header-main {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  background: linear-gradient(90deg, #ffe100, #ffcc00);
-  font-family: "Arial", sans-serif;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #f5d000, #f9c400);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
 }
 
-/* Logo */
-header .logo img {
-  max-height: 40px;
-}
-
-/* Nav */
-header nav {
-  display: flex;
-  gap: 32px;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-header nav a {
-  color: #000;
-  text-decoration: none;
-  position: relative;
-  padding: 8px;
-}
-
-header nav a.active,
-header nav a:hover {
-  color: #d40511;
-}
-
-header nav a.active::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: #d40511;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-/* Dropdown caret */
-header nav a.dropdown::after {
-  content: '▾';
-  font-size: 10px;
-  margin-left: 4px;
-  vertical-align: middle;
-}
-
-/* Dropdown Menu */
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #fff;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: none;
-  z-index: 1000;
-  min-width: 200px;
-}
-
-.dropdown-menu.active {
-  display: block;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 10px 16px;
-  font-weight: 400;
-  color: #111;
+.header .header-item {
+  cursor: pointer;
   white-space: nowrap;
 }
 
-.dropdown-menu a:hover {
-  background: #f2f2f2;
-  color: #d40511;
-}
-
-/* Language & Login */
-header .lang-login {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 14px;
-}
-
-header .lang-login .langs {
-  display: flex;
-  gap: 8px;
-}
-
-header .lang-login .langs span.active {
+.header .header-item a {
   font-weight: bold;
-  color: #000;
+  text-decoration: none;
+  color: #ba0c2f;
 }
 
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
+.header .dropdown::after {
+  content: ' ▼';
+  font-size: 0.75rem;
+}
 
-  header nav {
-    flex-wrap: wrap;
-  }
+.header .locale-switch {
+  margin-left: auto;
+  font-weight: bold;
+}
 
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    border: none;
-  }
+.header .menu-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 1rem 2rem 0.25rem;
+}
+
+.header .menu-section {
+  list-style: none;
+  padding: 0 2rem;
+  margin: 0 0 1rem;
+}
+
+.header .menu-section li {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  cursor: pointer;
 }
