@@ -3,46 +3,40 @@
   margin-left: calc(-5 * var(--section-padding-left, 2rem));
   margin-right: calc(2 * var(--section-padding-right, 2rem));
   background: linear-gradient(to right, #ffcc00, #fff2cc);
+  padding: 4rem 0; /* increased vertical padding */
   font-family: 'DHL-Font', sans-serif;
   color: #000;
-  margin-top: 3rem;   /* spacing above */
+  margin-top: 3rem;  /* spacing above */
   margin-bottom: 3rem; /* spacing below */
-  display: flex;
-  align-items: stretch; /* ensure children stretch vertically */
 }
 
 .promo-banner-inner {
   display: flex;
-  align-items: stretch;  /* ensures image and content match height */
+  align-items: center;
   justify-content: flex-start;
   max-width: 1200px;
   margin: auto;
   gap: 2rem;
   padding: 0 2rem;
-  width: 100%;
 }
 
 .promo-banner-image {
   flex: 0 0 auto;
-  width: 220px;
-  height: 100%;
+  width: 180px;
+  height: 100%; /* make image container match banner height */
   display: flex;
 }
 
 .promo-banner-image picture,
 .promo-banner-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100%; /* stretch image to match container height */
+  object-fit: cover; /* crop and scale to fill height without distortion */
   display: block;
 }
 
 .promo-banner-content {
   flex: 1;
-  padding: 2rem 0; /* aligns content nicely vertically */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .promo-banner-content h2 {
