@@ -1,50 +1,51 @@
 .teaser {
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
   background-color: #f4f4f4;
   font-family: 'DHL-Font', sans-serif;
   margin: 3rem auto;
   max-width: 1200px;
+  align-items: stretch;
 }
 
-.teaser > div:first-child {
+.teaser-image {
+  flex: 1;
+  min-width: 300px;
+  max-width: 50%;
+  display: flex;
+}
+
+.teaser-image picture,
+.teaser-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.teaser-content {
   flex: 1;
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
-  background-color: #f4f4f4;
 }
 
-.teaser > div:first-child div:nth-child(2) h2 {
+.teaser-content h2 {
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
 }
 
-.teaser > div:first-child div:nth-child(3) {
+.teaser-subtitle {
   font-size: 1.25rem;
   font-weight: 400;
   color: #333;
 }
 
-.teaser > div:first-child div:nth-child(4) {
+.teaser-content p {
   font-size: 1rem;
   color: #666;
   max-width: 500px;
-}
-
-.teaser > div:last-child {
-  flex: 1;
-  display: flex;
-}
-
-.teaser > div:last-child picture,
-.teaser > div:last-child img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
