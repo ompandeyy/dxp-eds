@@ -37,6 +37,36 @@ export default function decorate(block) {
     contentCol.appendChild(p);
   }
 
+  // Add DHL service cards
+  const cardsWrapper = document.createElement('div');
+  cardsWrapper.className = 'teaser-cards';
+
+  // Card 1: DHL eCommerce
+  const card1 = document.createElement('div');
+  card1.className = 'teaser-card';
+  card1.innerHTML = `
+    <div class="card-icon">🚚</div>
+    <div class="card-content">
+      <strong>DHL eCommerce</strong>
+      <p>Unsere Lösungen wurden von den E-Commerce-Spezialisten von DHL entwickelt und ermöglichen einen mühelosen Versand in europäische Länder.</p>
+    </div>
+  `;
+
+  // Card 2: DHL Express
+  const card2 = document.createElement('div');
+  card2.className = 'teaser-card';
+  card2.innerHTML = `
+    <div class="card-icon">✈️</div>
+    <div class="card-content">
+      <strong>DHL Express</strong>
+      <p>Schnell, Door-to-Door, Zustellung per Kurier. Time-Definite-Zustellung in über 220 Ländern</p>
+    </div>
+  `;
+
+  cardsWrapper.appendChild(card1);
+  cardsWrapper.appendChild(card2);
+  contentCol.appendChild(cardsWrapper);
+
   // Append both columns to the block
   block.appendChild(imageCol);
   block.appendChild(contentCol);
