@@ -1,27 +1,45 @@
 export default function decorate(block) {
   const rows = [...block.children];
-  if (rows.length !== 2) return;
+  const content = rows[1]?.children;
 
-  const [labels, values] = rows;
+  if (!content || content.length < 6) return;
 
-  const teaserData = {};
-  [...labels.children].forEach((child, i) => {
-    const key = child.textContent.trim().toLowerCase().replace(/\s+/g, '-');
-    teaserData[key] = values.children[i]?.innerHTML || '';
-  });
+  const [title, subtitle, description, servicesBlock, ctaText, ctaLink] = content;
+
+  // Extract services as array
+  const services = [...servicesBlock.querySelectorAll('li')];
+
+  // Extract image from first column
+  const imageWrapper = rows[0];
+  const imageEl = imageWrapper.querySelector('img');
 
   block.innerHTML = `
-    <div class="teaser-content">
-      <div>
-        <h2>${teaserData['title'] || ''}</h2>
-        <p class="short-title">${teaserData['short-title'] || ''}</p>
-        <p class="description">${teaserData['description'] || ''}</p>
-        <div class="icon-list">${teaserData['verfuegbare-service'] || ''}</div>
-        <a class="button" href="${teaserData['cta-link'] || '#'}">${teaserData['cta-title'] || 'Mehr erfahren'}</a>
+    <div class="teaser-wrapper">
+      <div class="teaser-left">
+        <div class="teaser-content">
+          <h2>${title.textContent}</h2>
+          <p class="subtitle">${subtitle.textContent}</p>
+          <div class="divider"></div>
+          <p class="description">${description.textContent}</p>
+          <div class="services">
+            <p class="services-title">${servicesBlock.querySelector('strong')?.textContent || ''}</p>
+            <ul class="icon-list">
+              ${services.map((li, index) => `
+                <li>
+                  <span class="icon icon-${index + 1}"></span>
+                  <span>${li.textContent.replace(/^.*?:/, '').trim()}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="cta-container">
+            <a href="${ctaLink.textContent}" class="cta-button">${ctaText.textContent}</a>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="teaser-image">
-      <img src="${teaserData['image-url'] || '/placeholder.jpg'}" alt="${teaserData['title'] || ''}">
+      <div class="teaser-right">
+        ${imageEl ? `<img src="${imageEl.src}" alt="${imageEl.alt}">` : ''}
+      </div>
     </div>
   `;
 }
