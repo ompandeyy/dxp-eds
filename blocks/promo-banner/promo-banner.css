@@ -1,7 +1,7 @@
 .promo-banner {
   width: 100vw;
-  margin-left: calc(-1 * var(--section-padding-left, 2rem));
-  margin-right: calc(-1 * var(--section-padding-right, 2rem));
+  margin-left: calc(-5 * var(--section-padding-left, 2rem));
+  margin-right: calc(2 * var(--section-padding-right, 2rem));
   background: linear-gradient(to right, #ffcc00, #fff2cc);
   padding: 2rem 0;
   font-family: 'DHL-Font', sans-serif;
