@@ -1,11 +1,13 @@
 export default function decorate(block) {
   // Extract elements from the block
-  const teaserTitle = block.querySelector('.teaser-title').textContent;
-  const teaserSubtitle = block.querySelector('.teaser-subtitle').textContent;
-  const teaserDescription = block.querySelector('.teaser-description').textContent;
-  const teaserServices = block.querySelector('.teaser-services');
-  const teaserCTA = block.querySelector('.teaser-cta').textContent;
-  const teaserImageSrc = block.querySelector('.teaser-image img').src;
+  const teaserElements = block.querySelectorAll('div > div');
+  const teaserTitle = teaserElements[1].children[0].textContent;
+  const teaserSubtitle = teaserElements[1].children[1].textContent;
+  const teaserDescription = teaserElements[1].children[2].textContent;
+  const teaserServices = teaserElements[1].children[3].querySelectorAll('li');
+  const teaserCTA = teaserElements[1].children[4].textContent;
+  const teaserCTALink = teaserElements[1].children[5].textContent;
+  const teaserImageSrc = teaserElements[1].children[6].textContent;
 
   // Create the container for the teaser content
   const teaserContainer = document.createElement('div');
@@ -33,13 +35,35 @@ export default function decorate(block) {
   descriptionElement.textContent = teaserDescription;
   teaserContent.appendChild(descriptionElement);
 
-  // Append the services section
-  teaserContent.appendChild(teaserServices);
+  // Create the services section
+  const servicesElement = document.createElement('div');
+  servicesElement.className = 'teaser-services';
+  const servicesTitle = document.createElement('h3');
+  servicesTitle.className = 'services-title';
+  servicesTitle.textContent = 'Verfügbare Services';
+  servicesElement.appendChild(servicesTitle);
+  const servicesGrid = document.createElement('div');
+  servicesGrid.className = 'services-grid';
+  teaserServices.forEach(service => {
+    const serviceItem = document.createElement('div');
+    serviceItem.className = 'service-item';
+    const serviceIcon = document.createElement('div');
+    serviceIcon.className = 'service-icon';
+    serviceIcon.textContent = '📦'; // Placeholder icon
+    const serviceText = document.createElement('span');
+    serviceText.className = 'service-text';
+    serviceText.textContent = service.textContent;
+    serviceItem.appendChild(serviceIcon);
+    serviceItem.appendChild(serviceText);
+    servicesGrid.appendChild(serviceItem);
+  });
+  servicesElement.appendChild(servicesGrid);
+  teaserContent.appendChild(servicesElement);
 
   // Create and append the CTA button
   const ctaElement = document.createElement('a');
   ctaElement.className = 'teaser-cta';
-  ctaElement.href = block.querySelector('.teaser-cta').href;
+  ctaElement.href = teaserCTALink;
   ctaElement.textContent = teaserCTA;
   teaserContent.appendChild(ctaElement);
 
