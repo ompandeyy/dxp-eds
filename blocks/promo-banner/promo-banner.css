@@ -22,13 +22,16 @@
 
 .promo-banner-image {
   flex: 0 0 auto;
-  width: 180px;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
 }
 
 .promo-banner-image picture,
 .promo-banner-image img {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+  object-fit: cover;
   display: block;
 }
 
