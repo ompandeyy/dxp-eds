@@ -1,27 +1,116 @@
+/* Updated Cards CSS to match the design */
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-gap: 24px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
+  border: 1px solid #e0e0e0;
   background-color: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+.cards > ul > li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cards .cards-card-image {
   line-height: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cards > ul > li:hover img {
+  transform: scale(1.02);
+}
+
+.cards .cards-card-body {
+  padding: 24px;
+  position: relative;
+}
+
+.cards .cards-card-body h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #333;
+}
+
+.cards .cards-card-body h2 a {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cards .cards-card-body h2 a::after {
+  content: "→";
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+  color: #666;
+}
+
+.cards .cards-card-body h2 a:hover::after {
+  transform: translateX(4px);
+}
+
+.cards .cards-card-body p.button-container {
+  margin: 0;
+}
+
+.cards .cards-card-body p.button-container a.button {
+  text-decoration: none;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: block;
+  padding: 0;
+  background: none;
+  border: none;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.cards .cards-card-body p.button-container a.button:hover {
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cards > ul {
+    grid-template-columns: 1fr;
+    grid-gap: 16px;
+  }
+  
+  .cards .cards-card-body {
+    padding: 20px;
+  }
+  
+  .cards .cards-card-body h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Optional: Add specific styling for external links */
+.cards .cards-card-body h2 a[href*="global-en"]::after {
+  content: "↗";
+  font-size: 0.9em;
 }
