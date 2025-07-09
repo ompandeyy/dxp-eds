@@ -1,0 +1,61 @@
+.promo-banner {
+  background: linear-gradient(to right, #ffcc00, #fff2cc);
+  padding: 2rem;
+  font-family: 'DHL-Font', sans-serif;
+  color: #000;
+}
+
+.promo-banner-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.promo-banner-image {
+  flex: 1 1 40%;
+  min-width: 280px;
+  padding: 1rem;
+}
+
+.promo-banner-image picture,
+.promo-banner-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.promo-banner-content {
+  flex: 1 1 60%;
+  padding: 1rem 2rem;
+  min-width: 300px;
+}
+
+.promo-banner-content h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.promo-banner-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.promo-banner-content .eds-btn--primary {
+  background-color: #e40000;
+  color: #fff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease;
+}
+
+.promo-banner-content .eds-btn--primary:hover {
+  background-color: #cc0000;
+}
