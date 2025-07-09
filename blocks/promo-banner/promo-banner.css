@@ -3,9 +3,11 @@
   margin-left: calc(-5 * var(--section-padding-left, 2rem));
   margin-right: calc(2 * var(--section-padding-right, 2rem));
   background: linear-gradient(to right, #ffcc00, #fff2cc);
-  padding: 2rem 0;
+  padding: 4rem 0; /* increased vertical padding */
   font-family: 'DHL-Font', sans-serif;
   color: #000;
+  margin-top: 3rem;  /* spacing above */
+  margin-bottom: 3rem; /* spacing below */
 }
 
 .promo-banner-inner {
