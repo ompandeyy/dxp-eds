@@ -1,36 +1,27 @@
 export default function decorate(block) {
-  // Remove heading structure if it exists (row 1)
-  const headingRow = block.querySelector(':scope > div:first-child');
-  if (headingRow) headingRow.style.display = 'none';
+  const rows = [...block.children];
+  if (rows.length !== 2) return;
 
-  const contentRow = block.querySelector(':scope > div:nth-child(2)');
-  if (!contentRow) return;
+  const [labels, values] = rows;
 
-  const [
-    headingEl,
-    subheadingEl,
-    descriptionEl,
-    listEl,
-    ctaTextEl,
-    ctaLinkEl,
-  ] = Array.from(contentRow.children);
+  const teaserData = {};
+  [...labels.children].forEach((child, i) => {
+    const key = child.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+    teaserData[key] = values.children[i]?.innerHTML || '';
+  });
 
-  headingEl.classList.add('teaser-heading');
-  subheadingEl.classList.add('teaser-subheading');
-  descriptionEl.classList.add('teaser-description');
-  listEl.classList.add('teaser-list');
-  ctaTextEl.classList.add('teaser-cta');
-  ctaLinkEl.classList.add('teaser-link');
-
-  // Make CTA clickable
-  const link = ctaLinkEl.textContent?.trim();
-  const buttonText = ctaTextEl.textContent?.trim();
-  if (link && buttonText) {
-    const a = document.createElement('a');
-    a.href = link;
-    a.className = 'teaser-button';
-    a.textContent = buttonText;
-    ctaTextEl.replaceWith(a);
-    ctaLinkEl.remove();
-  }
+  block.innerHTML = `
+    <div class="teaser-content">
+      <div>
+        <h2>${teaserData['title'] || ''}</h2>
+        <p class="short-title">${teaserData['short-title'] || ''}</p>
+        <p class="description">${teaserData['description'] || ''}</p>
+        <div class="icon-list">${teaserData['verfuegbare-service'] || ''}</div>
+        <a class="button" href="${teaserData['cta-link'] || '#'}">${teaserData['cta-title'] || 'Mehr erfahren'}</a>
+      </div>
+    </div>
+    <div class="teaser-image">
+      <img src="${teaserData['image-url'] || '/placeholder.jpg'}" alt="${teaserData['title'] || ''}">
+    </div>
+  `;
 }
