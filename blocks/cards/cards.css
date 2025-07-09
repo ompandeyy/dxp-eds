@@ -98,15 +98,12 @@
   background: none;
   border: none;
   text-align: left;
-  transition: color 0.2s ease;
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-}
-
-.cards .cards-card-body p.button-container a.button:hover {
-  color: #333;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* Responsive adjustments */
