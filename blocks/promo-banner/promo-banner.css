@@ -1,23 +1,26 @@
 .promo-banner {
+  width: 100vw;
+  margin-left: calc(-1 * var(--section-padding-left, 2rem));
+  margin-right: calc(-1 * var(--section-padding-right, 2rem));
   background: linear-gradient(to right, #ffcc00, #fff2cc);
-  padding: 2rem;
+  padding: 2rem 0;
   font-family: 'DHL-Font', sans-serif;
   color: #000;
 }
 
 .promo-banner-inner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 1200px;
   margin: auto;
+  gap: 2rem;
+  padding: 0 2rem;
 }
 
 .promo-banner-image {
-  flex: 1 1 40%;
-  min-width: 280px;
-  padding: 1rem;
+  flex: 0 0 auto;
+  width: 180px;
 }
 
 .promo-banner-image picture,
@@ -28,21 +31,19 @@
 }
 
 .promo-banner-content {
-  flex: 1 1 60%;
-  padding: 1rem 2rem;
-  min-width: 300px;
+  flex: 1;
 }
 
 .promo-banner-content h2 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
 }
 
 .promo-banner-content p {
   font-size: 1rem;
-  margin-bottom: 1.5rem;
   font-weight: 400;
+  margin-bottom: 1.5rem;
 }
 
 .promo-banner-content .eds-btn--primary {
