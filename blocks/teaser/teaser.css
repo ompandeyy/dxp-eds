@@ -1,63 +1,187 @@
+/* Teaser Block Styles */
 .teaser {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid #e0e0e0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  background: white;
 }
 
-.teaser > div:first-child {
-  flex: 1 1 50%;
+.teaser-container {
+  display: flex;
+  align-items: stretch;
+  min-height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.teaser-content {
+  flex: 1;
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  background: #f8f9fa;
 }
 
-.teaser > div:last-child {
-  flex: 1 1 50%;
+.teaser-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.teaser-subtitle {
+  font-size: 1.125rem;
+  color: #666;
+  margin: 0 0 24px 0;
+  font-weight: 400;
+  position: relative;
+}
+
+.teaser-subtitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #d40511;
+  margin-top: 16px;
+}
+
+.teaser-description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+}
+
+.teaser-services {
+  margin-bottom: 40px;
+}
+
+.services-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 24px 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.service-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #fff3cd;
+  border-radius: 6px;
+  border: 1px solid #ffeaa7;
+}
+
+.service-icon {
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.teaser h2 {
-  font-family: 'DHL Font Head', sans-serif;
-  font-size: 2rem;
-  color: #d40511;
-  margin: 0 0 1rem;
-}
-
-.teaser p {
-  font-family: 'DHL Font Body', sans-serif;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-.teaser ul {
-  font-family: 'DHL Font Body', sans-serif;
-  padding-left: 1rem;
-  margin-bottom: 1rem;
-}
-
-.teaser ul li::before {
-  content: "✔";
-  margin-right: 0.5rem;
-  color: #d40511;
-}
-
-.teaser a.button {
-  font-family: 'DHL Font Body', sans-serif;
-  padding: 0.75rem 1.5rem;
-  background-color: #d40511;
-  color: #fff;
-  text-decoration: none;
-  display: inline-block;
-  font-weight: bold;
+  background: #ffd32a;
   border-radius: 4px;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
-.teaser img {
-  max-width: 100%;
-  height: auto;
+.service-text {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.teaser-cta {
+  display: inline-block;
+  background: #d40511;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
   border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+}
+
+.teaser-cta:hover {
+  background: #b8040f;
+  color: white;
+}
+
+.teaser-image {
+  flex: 1;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.teaser-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .teaser-container {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .teaser-content {
+    padding: 24px;
+  }
+  
+  .teaser-title {
+    font-size: 2rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .teaser-image {
+    min-height: 300px;
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .teaser-content {
+    padding: 20px;
+  }
+  
+  .teaser-title {
+    font-size: 1.75rem;
+  }
+  
+  .teaser-subtitle {
+    font-size: 1rem;
+  }
+  
+  .teaser-cta {
+    padding: 14px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .service-item {
+    padding: 10px 12px;
+  }
+  
+  .service-text {
+    font-size: 0.85rem;
+  }
 }
