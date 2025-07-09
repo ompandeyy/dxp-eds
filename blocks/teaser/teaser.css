@@ -1,61 +1,63 @@
-/* teaser.css */
-
 .teaser {
-  font-family: 'DHLFont', sans-serif;
-  color: #000;
-  background-color: #fff;
-  padding: 2rem;
   display: flex;
-  gap: 2rem;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-/* Hide heading structure row */
 .teaser > div:first-child {
-  display: none;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Main headline */
+.teaser > div:last-child {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .teaser h2 {
-  font-weight: 700;
+  font-family: 'DHL Font Head', sans-serif;
   font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-/* Short title */
-.teaser > div:nth-child(2) > div:nth-child(2) {
-  font-weight: 600;
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-/* Description */
-.teaser > div:nth-child(2) > div:nth-child(3) {
-  font-weight: 400;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* Icon list */
-.teaser > div:nth-child(2) > div:nth-child(4) ul {
-  list-style-type: none;
-  padding: 0;
+  color: #d40511;
   margin: 0 0 1rem;
-  font-weight: 400;
-  font-size: 0.95rem;
-}
-.teaser > div:nth-child(2) > div:nth-child(4) li::before {
-  content: '•';
-  margin-right: 0.5em;
-  color: #e3000b; /* DHL red */
 }
 
-/* CTA Button */
-.teaser > div:nth-child(2) > div:nth-child(5) {
-  font-weight: 600;
+.teaser p {
+  font-family: 'DHL Font Body', sans-serif;
   font-size: 1rem;
-  color: #e3000b;
-  text-decoration: underline;
-  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.teaser ul {
+  font-family: 'DHL Font Body', sans-serif;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.teaser ul li::before {
+  content: "✔";
+  margin-right: 0.5rem;
+  color: #d40511;
+}
+
+.teaser a.button {
+  font-family: 'DHL Font Body', sans-serif;
+  padding: 0.75rem 1.5rem;
+  background-color: #d40511;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.teaser img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
 }
