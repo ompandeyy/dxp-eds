@@ -2,7 +2,7 @@ export default function decorate(block) {
   const rows = [...block.children];
   if (!rows.length) return;
 
-  const content = rows[0].children;
+  const content = rows[1].children;
   const image = content[0]?.querySelector('picture')?.outerHTML || '';
   const title = content[1]?.textContent || '';
   const body = content[2]?.textContent || '';
