@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .hero-background {
   position: absolute;
   top: 0;
@@ -17,6 +22,7 @@
   height: 100%;
   z-index: -1;
   overflow: hidden;
+  border: 5px solid limegreen;
 }
 
 .hero-background picture,
@@ -25,6 +31,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border: 3px solid red;
 }
 
 .hero-content {
