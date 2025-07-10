@@ -1,20 +1,12 @@
-/* Hero Wrapper Styles */
-.hero-wrapper {
-  width: 100%;
-}
-
-/* Hero Block Styles */
 .hero {
   position: relative;
   min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-size: cover;
-  background-position: center center;
+  background: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
   color: white;
   text-align: center;
-  width: 100%;
 }
 
 .hero .hero-background {
@@ -76,7 +68,7 @@
   background-color: #b8040f;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .hero h1 {
     font-size: 2rem;
   }
