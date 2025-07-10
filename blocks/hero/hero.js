@@ -1,43 +1,44 @@
 export default function decorate(block) {
-  // Get the title, background image, form placeholder, and form button text
-  const title = block.children[1].children[0].textContent; // Title
-  const backgroundImageUrl = block.children[1].children[1].textContent; // Background image URL
-  const formPlaceholder = block.children[1].children[2].textContent; // Form placeholder
-  const formButtonText = block.children[1].children[3].textContent; // Form button text
+  const title = block.children[1].children[0].textContent;
+  const backgroundImageUrl = block.children[1].children[1].textContent;
+  const formPlaceholder = block.children[1].children[2].textContent;
+  const formButtonText = block.children[1].children[3].textContent;
 
-  // Set the background image for the block itself
-  block.style.backgroundImage = `url(${backgroundImageUrl})`;
-  block.style.backgroundSize = 'cover';
-  block.style.backgroundPosition = 'center';
-  block.style.color = 'white'; // Optional: Change text color for better visibility
+  block.classList.add('hero');
 
-  // Create a container for the hero content
-  const heroContainer = document.createElement('div');
-  heroContainer.className = 'hero-container';
+  // Create and insert the full-width background element
+  const backgroundDiv = document.createElement('div');
+  backgroundDiv.className = 'hero-background';
+  backgroundDiv.style.backgroundImage = `url(${backgroundImageUrl})`;
+  block.appendChild(backgroundDiv);
 
-  // Create and append the title
-  const titleElement = document.createElement('h1');
-  titleElement.textContent = title;
-  heroContainer.appendChild(titleElement);
+  // Create content wrapper
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'hero-content';
 
-  // Create the form
+  const h1 = document.createElement('h1');
+  h1.textContent = title;
+  contentDiv.appendChild(h1);
+
   const form = document.createElement('form');
+  form.className = 'tracking-form';
+
   const input = document.createElement('input');
   input.type = 'text';
   input.placeholder = formPlaceholder;
-  input.className = 'hero-input';
+  input.className = 'tracking-input';
 
   const button = document.createElement('button');
   button.type = 'submit';
   button.textContent = formButtonText;
-  button.className = 'hero-button';
+  button.className = 'tracking-submit';
 
-  // Append input and button to the form
   form.appendChild(input);
   form.appendChild(button);
-  heroContainer.appendChild(form);
+  contentDiv.appendChild(form);
 
-  // Clear the block and append the hero container
+  // Clear original block content and append
   block.textContent = '';
-  block.appendChild(heroContainer);
+  block.appendChild(backgroundDiv);
+  block.appendChild(contentDiv);
 }

@@ -1,25 +1,29 @@
 .hero {
   position: relative;
+  overflow: hidden;
   min-height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 30%));
   color: white;
   text-align: center;
 }
 
-.hero .hero-background {
+/* FULL-WIDTH BACKGROUND IMAGE */
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: -1;
 }
 
-.hero .hero-content {
+/* CONTENT STYLING */
+.hero-content {
   max-width: 800px;
   padding: 2rem;
   z-index: 1;
@@ -32,14 +36,14 @@
   text-shadow: 2px 2px 4px rgb(0 0 0 / 50%);
 }
 
-.hero .tracking-form {
+.tracking-form {
   display: flex;
   max-width: 600px;
   margin: 0 auto;
   box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
-.hero .tracking-input {
+.tracking-input {
   flex: 1;
   padding: 1rem 1.5rem;
   border: none;
@@ -48,11 +52,7 @@
   border-radius: 4px 0 0 4px;
 }
 
-.hero .tracking-input::placeholder {
-  color: #999;
-}
-
-.hero .tracking-submit {
+.tracking-submit {
   background-color: #d40511;
   color: white;
   border: none;
@@ -64,28 +64,22 @@
   transition: background-color 0.3s ease;
 }
 
-.hero .tracking-submit:hover {
+.tracking-submit:hover {
   background-color: #b8040f;
-}
-
-.full-width {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
 }
 
 @media (width <= 768px) {
   .hero h1 {
     font-size: 2rem;
   }
-  
-  .hero .tracking-form {
+
+  .tracking-form {
     flex-direction: column;
     max-width: 100%;
   }
-  
-  .hero .tracking-input,
-  .hero .tracking-submit {
+
+  .tracking-input,
+  .tracking-submit {
     border-radius: 4px;
     margin-bottom: 0.5rem;
   }
