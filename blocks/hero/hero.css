@@ -68,6 +68,12 @@
   background-color: #b8040f;
 }
 
+.full-width {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
 @media (width <= 768px) {
   .hero h1 {
     font-size: 2rem;
