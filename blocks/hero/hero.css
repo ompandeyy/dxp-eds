@@ -22,14 +22,9 @@
   height: 100%; /* Ensure it covers the entire area */
   z-index: -1; /* Background behind content */
   overflow: hidden;
-}
-
-.hero-background picture,
-.hero-background img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Cover the entire area */
-  display: block;
+  background-size: cover; /* Ensure the image covers the entire area */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent repeating of the background image */
 }
 
 .hero-content {
