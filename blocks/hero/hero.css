@@ -10,7 +10,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 30%)), url('https://www.dhl.com/content/dam/dhl/global/core/images/marketing-stage-2730x1120/europe-core-homepage-banner.web.3840.1200.png');
   background-size: cover;
   background-position: center center;
   color: white;
