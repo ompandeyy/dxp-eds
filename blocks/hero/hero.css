@@ -13,7 +13,13 @@
   position: relative;
   width: 100%;
 }
+.hero-background {
+  border: 5px solid limegreen;
+}
 
+.hero-background img {
+ 
+}
 .hero-background {
   position: absolute;
   top: 0;
