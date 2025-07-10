@@ -1,15 +1,13 @@
 .hero {
   position: relative;
-  overflow: hidden;
   min-height: 500px;
+  width: 100vw;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  text-align: center;
 }
 
-/* FULL-WIDTH BACKGROUND IMAGE */
 .hero-background {
   position: absolute;
   top: 0;
@@ -22,45 +20,50 @@
   z-index: -1;
 }
 
-/* CONTENT STYLING */
 .hero-content {
-  max-width: 800px;
-  padding: 2rem;
   z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
 }
 
-.hero h1 {
+.hero-content h1 {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 4px rgb(0 0 0 / 50%);
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .tracking-form {
   display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
   max-width: 600px;
   margin: 0 auto;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
 .tracking-input {
   flex: 1;
-  padding: 1rem 1.5rem;
-  border: none;
+  min-width: 200px;
+  padding: 1rem;
   font-size: 1rem;
-  outline: none;
+  border: none;
   border-radius: 4px 0 0 4px;
+  outline: none;
 }
 
 .tracking-submit {
   background-color: #d40511;
   color: white;
-  border: none;
   padding: 1rem 2rem;
   font-size: 1rem;
+  border: none;
+  border-radius: 0 4px 4px 0;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 0 4px 4px 0;
   transition: background-color 0.3s ease;
 }
 
@@ -68,19 +71,19 @@
   background-color: #b8040f;
 }
 
-@media (width <= 768px) {
-  .hero h1 {
+@media (max-width: 768px) {
+  .hero-content h1 {
     font-size: 2rem;
   }
 
   .tracking-form {
     flex-direction: column;
-    max-width: 100%;
   }
 
   .tracking-input,
   .tracking-submit {
     border-radius: 4px;
-    margin-bottom: 0.5rem;
+    width: 100%;
+    margin: 0.5rem 0;
   }
 }

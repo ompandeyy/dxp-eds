@@ -1,44 +1,56 @@
 export default function decorate(block) {
-  const title = block.children[1].children[0].textContent;
-  const backgroundImageUrl = block.children[1].children[1].textContent;
-  const formPlaceholder = block.children[1].children[2].textContent;
-  const formButtonText = block.children[1].children[3].textContent;
+  const [labels, content] = block.children;
 
+  const picture = content.querySelector('picture');
+  const title = content.children[1]?.textContent?.trim();
+  const inputPlaceholder = content.children[2]?.textContent?.trim();
+  const buttonText = content.children[3]?.textContent?.trim();
+
+  // Extract image URL from picture
+  const image = picture?.querySelector('img');
+  const imageUrl = image?.src || '';
+
+  // Add class to block
   block.classList.add('hero');
 
-  // Create and insert the full-width background element
-  const backgroundDiv = document.createElement('div');
-  backgroundDiv.className = 'hero-background';
-  backgroundDiv.style.backgroundImage = `url(${backgroundImageUrl})`;
-  block.appendChild(backgroundDiv);
+  // Clear block contents
+  block.innerHTML = '';
 
-  // Create content wrapper
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'hero-content';
+  // Background image div
+  const background = document.createElement('div');
+  background.className = 'hero-background';
+  background.style.backgroundImage = `url(${imageUrl})`;
 
+  // Content wrapper
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'hero-content';
+
+  // Title
   const h1 = document.createElement('h1');
   h1.textContent = title;
-  contentDiv.appendChild(h1);
 
+  // Form
   const form = document.createElement('form');
   form.className = 'tracking-form';
 
   const input = document.createElement('input');
-  input.type = 'text';
-  input.placeholder = formPlaceholder;
   input.className = 'tracking-input';
+  input.type = 'text';
+  input.placeholder = inputPlaceholder;
 
   const button = document.createElement('button');
-  button.type = 'submit';
-  button.textContent = formButtonText;
   button.className = 'tracking-submit';
+  button.type = 'submit';
+  button.textContent = buttonText;
 
   form.appendChild(input);
   form.appendChild(button);
-  contentDiv.appendChild(form);
 
-  // Clear original block content and append
-  block.textContent = '';
-  block.appendChild(backgroundDiv);
-  block.appendChild(contentDiv);
+  // Assemble content
+  contentWrapper.appendChild(h1);
+  contentWrapper.appendChild(form);
+
+  // Append to block
+  block.appendChild(background);
+  block.appendChild(contentWrapper);
 }
