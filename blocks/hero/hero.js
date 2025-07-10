@@ -12,7 +12,18 @@ export default function decorate(block) {
   // Background wrapper
   const backgroundWrapper = document.createElement('div');
   backgroundWrapper.className = 'hero-background';
-  if (picture) backgroundWrapper.appendChild(picture);
+
+  // Fetch the image URL from the <picture> tag
+  if (picture) {
+    const img = picture.querySelector('img');
+    if (img) {
+      const imgSrc = img.src; // Get the source URL from the <img> tag
+      backgroundWrapper.style.backgroundImage = `url("${imgSrc}")`; // Set the background image
+    }
+  }
+
+  backgroundWrapper.style.backgroundSize = 'cover'; // Ensure the image covers the entire area
+  backgroundWrapper.style.backgroundPosition = 'center'; // Center the background image
 
   // Content
   const contentWrapper = document.createElement('div');
