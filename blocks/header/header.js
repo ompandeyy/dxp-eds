@@ -125,12 +125,14 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${c}`);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
+const navBrand = nav.querySelector('.nav-brand');
+if (navBrand) {
+  const brandLink = navBrand.querySelector('a');
   if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+    brandLink.innerHTML = `<img src="/media_3ZKUqSxZsHBaFXaP1ekSiD.png" alt="DHL Logo" class="dhl-logo">`;
+    brandLink.classList.add('brand-logo-link');
   }
+}
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
