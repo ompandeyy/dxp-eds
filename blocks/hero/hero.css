@@ -1,44 +1,48 @@
-/* 2) Make the wrapper full‑bleed, regardless of parent constraints */
+/* 2) FULL‑BLEED HERO WRAPPER */
 .hero-wrapper {
   position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  overflow: hidden;
+
+  /* make it viewport‑wide */
+  width: 100vw !important;
+  max-width: 100vw !important;
+
+  /* pull it out of the parent’s centered container */
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+
+  /* remove any inherited padding */
+  padding: 0 !important;
   box-sizing: border-box;
-  /* If you need the hero to sit on top of other siblings: */
-  /* z-index: 0; */
+  overflow: hidden;
 }
 
-/* 3) Hero fills viewport height + centers its content */
+/* 3) FULL‑VIEWPORT HEIGHT HERO */
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;     /* “cover entire page” */
+  min-height: 100vh;   /* fill the browser height */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* 4) Background spans the full hero area */
+/* 4) BACKGROUND COVER */
 .hero-background {
   position: absolute;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;          /* fill */
-  background-position: center;     /* center crop */
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   z-index: 0;
 }
 
-/* 5) Keep your content on top of the bg */
+/* 5) CONTENT ON TOP */
 .hero-content {
-  position: relative;  /* lift above .hero-background */
+  position: relative;
   z-index: 1;
   color: white;
   text-align: center;
@@ -49,15 +53,15 @@
   box-sizing: border-box;
 }
 
-/* 6) Headline styling */
+/* 6) HEADLINE */
 .hero-content h1 {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
-/* 7) Form styling */
+/* 7) FORM */
 .tracking-form {
   display: flex;
   justify-content: center;
@@ -87,23 +91,18 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 .tracking-submit:hover {
   background-color: #b8040f;
 }
 
-/* 8) Responsive tweaks */
+/* 8) MOBILE ADJUSTMENTS */
 @media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-  .tracking-form {
-    flex-direction: column;
-  }
+  .hero-content h1 { font-size: 2rem; }
+  .tracking-form { flex-direction: column; }
   .tracking-input,
   .tracking-submit {
-    border-radius: 4px;
     width: 100%;
     margin: 0.5rem 0;
+    border-radius: 4px;
   }
 }
