@@ -3,8 +3,9 @@
   margin-left: calc(-5 * var(--section-padding-left, 2rem));
   margin-right: calc(2 * var(--section-padding-right, 2rem));
   background: linear-gradient(to right, #ffcc00, #fff2cc);
-  padding: 4rem 0; /* increased vertical padding */
-  font-family: 'DHL-Font', sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
   color: #000;
   margin-top: 3rem;  /* spacing above */
   margin-bottom: 3rem; /* spacing below */
@@ -12,56 +13,80 @@
 
 .promo-banner-inner {
   display: flex;
-  align-items: center;
+  align-items: stretch; /* Make both image and content stretch to full height */
   justify-content: flex-start;
   max-width: 1200px;
   margin: auto;
   gap: 2rem;
   padding: 0 2rem;
+  min-height: 100%;
+  height: 100%;
 }
 
 .promo-banner-image {
-  flex: 0 0 auto;
-  width: 180px;
-  height: 100%; /* make image container match banner height */
+  flex: 0 0 50%; /* Take up 50% width, don't grow or shrink */
   display: flex;
+  align-items: stretch;
+  height: 100%;
 }
 
 .promo-banner-image picture,
 .promo-banner-image img {
   width: 100%;
-  height: 100%; /* stretch image to match container height */
-  object-fit: cover; /* crop and scale to fill height without distortion */
+  height: 100%; /* Make image fill the full height */
+  object-fit: cover; /* Cover the entire container while maintaining aspect ratio */
+  object-position: center center;
   display: block;
 }
 
 .promo-banner-content {
-  flex: 1;
+  flex: 1; /* Take up remaining space */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .promo-banner-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 .promo-banner-content p {
-  font-size: 1rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  color: #666;
+  line-height: 1.6;
 }
 
 .promo-banner-content .eds-btn--primary {
-  background-color: #e40000;
-  color: #fff;
-  font-weight: 700;
+  background-color: #d40511;
+  color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 4px;
   text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
   display: inline-block;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .promo-banner-content .eds-btn--primary:hover {
-  background-color: #cc0000;
+  background-color: #b8040f;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .promo-banner-inner {
+    flex-direction: column;
+  }
+
+  .promo-banner-image {
+    flex: none;
+    height: 200px; /* Fixed height on mobile */
+  }
+
+  .promo-banner-content {
+    padding: 1.5rem;
+  }
 }
