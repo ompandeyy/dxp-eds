@@ -18,12 +18,12 @@ export default function decorate(block) {
     const img = picture.querySelector('img');
     if (img) {
       const imgSrc = img.src; // Get the source URL from the <img> tag
-      backgroundWrapper.style.backgroundImage = `url("${imgSrc}")`; // Set the background image
+      const inlineImg = document.createElement('img');
+      inlineImg.src = imgSrc;
+      inlineImg.alt = 'Background Image';
+      backgroundWrapper.appendChild(inlineImg);
     }
   }
-
-  backgroundWrapper.style.backgroundSize = 'cover'; // Ensure the image covers the entire area
-  backgroundWrapper.style.backgroundPosition = 'center'; // Center the background image
 
   // Content
   const contentWrapper = document.createElement('div');
